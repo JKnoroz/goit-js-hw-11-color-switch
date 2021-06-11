@@ -26,15 +26,20 @@ const startColorChange = () => {
   }, DELAY);
 };
 
+function switchActiveBtn(a, b) {
+  if (b.disabled) {
+    a.disabled = true;
+    b.disabled = false;
+  }
+}
+
 startBtn.addEventListener("click", () => {
   startColorChange();
-  stopBtn.disabled = false;
-  startBtn.disabled = true;
+  switchActiveBtn(startBtn, stopBtn);
 });
 
 stopBtn.addEventListener("click", () => {
   clearInterval(interval);
   console.log("STOP");
-  startBtn.disabled = false;
-  stopBtn.disabled = true;
+  switchActiveBtn(stopBtn, startBtn);
 });
