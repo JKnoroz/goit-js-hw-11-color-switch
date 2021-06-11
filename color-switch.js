@@ -15,19 +15,26 @@ const startBtn = document.querySelector('button[data-action="start"]');
 const stopBtn = document.querySelector('button[data-action="stop"]');
 const DELAY = 1000;
 
-let interval = null;
+let interval;
+stopBtn.disabled = true;
 
-startBtn.addEventListener(
-  "click",
-  () =>
-    (interval = setInterval(() => {
-      document.body.style.backgroundColor =
-        colors[randomIntegerFromInterval(0, colors.length - 1)];
-      console.log("я меняю цвет");
-    }, DELAY))
-);
+const startColorChange = () => {
+  interval = setInterval(() => {
+    document.body.style.backgroundColor =
+      colors[randomIntegerFromInterval(0, colors.length - 1)];
+    console.log("я меняю цвет");
+  }, DELAY);
+};
+
+startBtn.addEventListener("click", () => {
+  startColorChange();
+  stopBtn.disabled = false;
+  startBtn.disabled = true;
+});
 
 stopBtn.addEventListener("click", () => {
   clearInterval(interval);
   console.log("STOP");
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
 });
